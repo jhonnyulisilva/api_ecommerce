@@ -1,23 +1,31 @@
 package com.udemy.cursomc.domain;
 
-import ch.qos.logback.core.net.server.Client;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.udemy.cursomc.domain.Enums.TipoCliente;
 
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.*;
 
+@Entity
 public class Cliente implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String nome;
     private String email;
     private String cpfOuCpnj;
     private Integer tipo;
 
+    @JsonManagedReference
+    @OneToMany(mappedBy = "cliente")
     private List<Endereco> enderecos = new ArrayList<>();
 
+    @ElementCollection
+    @CollectionTable(name = "TELEFONE")
     private Set<String> telefones = new HashSet<>();
 
     public Cliente() {
