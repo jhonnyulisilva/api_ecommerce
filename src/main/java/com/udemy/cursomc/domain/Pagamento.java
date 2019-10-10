@@ -1,6 +1,5 @@
 package com.udemy.cursomc.domain;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.udemy.cursomc.domain.Enums.EstadoPagamento;
 
