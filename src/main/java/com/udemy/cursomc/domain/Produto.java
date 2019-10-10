@@ -1,6 +1,7 @@
 package com.udemy.cursomc.domain;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -23,6 +24,7 @@ public class Produto implements Serializable {
             inverseJoinColumns = @JoinColumn(name = "categoria_id"))
     private List<Categoria> categorias = new ArrayList<>();
 
+    @JsonIgnore
     @OneToMany(mappedBy = "id.produto")
     private Set<ItemPedido> itens = new HashSet<>();
 
@@ -35,6 +37,7 @@ public class Produto implements Serializable {
         this.preco = preco;
     }
 
+    @JsonIgnore
     public List<Pedido> getPedidos() {
         List<Pedido> lista = new ArrayList<>();
         for(ItemPedido x : itens) {
@@ -88,14 +91,11 @@ public class Produto implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Produto produto = (Produto) o;
-        return Objects.equals(id, produto.id) &&
-                Objects.equals(nome, produto.nome) &&
-                Objects.equals(preco, produto.preco) &&
-                Objects.equals(categorias, produto.categorias);
+        return id.equals(produto.id);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, nome, preco, categorias);
+        return Objects.hash(id);
     }
 }
