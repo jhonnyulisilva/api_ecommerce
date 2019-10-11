@@ -12,7 +12,7 @@ public class ClienteService {
     @Autowired
     private ClienteRepository repo;
 
-    public Cliente buscar(Integer id) {
+    public Cliente find(Integer id) {
         Cliente obj = repo.findById(id).orElse(null);
 
         if(obj == null){
