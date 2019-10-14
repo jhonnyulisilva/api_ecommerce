@@ -1,8 +1,13 @@
 package com.udemy.cursomc.services;
 
 import com.udemy.cursomc.DTO.ClienteDTO;
+import com.udemy.cursomc.DTO.ClienteNewDTO;
+import com.udemy.cursomc.domain.Cidade;
 import com.udemy.cursomc.domain.Cliente;
+import com.udemy.cursomc.domain.Endereco;
+import com.udemy.cursomc.domain.Enums.TipoCliente;
 import com.udemy.cursomc.repositories.ClienteRepository;
+import com.udemy.cursomc.repositories.EnderecoRepository;
 import com.udemy.cursomc.services.exceptions.DataIntegrityException;
 import com.udemy.cursomc.services.exceptions.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +25,9 @@ public class ClienteService {
     @Autowired
     private ClienteRepository repo;
 
+    @Autowired
+    private EnderecoRepository enderecoRepository;
+
     public Cliente find(Integer id) {
         Cliente obj = repo.findById(id).orElse(null);
 
@@ -27,6 +35,13 @@ public class ClienteService {
             throw new ObjectNotFoundException("Objeto não encontrado! Id " + id
                     + ", Tipo " + Cliente.class.getName());
         }
+        return obj;
+    }
+
+    public Cliente insert(Cliente obj) {
+        obj.setId(null);
+        obj = repo.save(obj);
+        enderecoRepository.saveAll(obj.getEnderecos());
         return obj;
     }
 
@@ -55,13 +70,38 @@ public class ClienteService {
         return repo.findAll(pageRequest);
     }
 
-    public Cliente fromDto(ClienteDTO    objDto) {
+    public Cliente fromDto(ClienteDTO objDto) {
         return new Cliente(objDto.getId(), objDto.getNome(), objDto.getEmail(), null, null);
+    }
+
+    public Cliente fromDTO(ClienteNewDTO objDto) throws IllegalAccessException {
+        //Inserindo Cliente
+        Cliente cli = new Cliente(null, objDto.getNome(), objDto.getEmail(), objDto.getCpfOuCnpj(), TipoCliente.toEnum(objDto.getTipo()));
+        //Inserindo a Cidade
+        Cidade cid = new Cidade(objDto.getCidadeId(), null, null);
+        //Inserindo o Endereço
+        Endereco end = new Endereco(null, objDto.getLogradouro(), objDto.getNumero(), objDto.getComplemento(), objDto.getBairro(), objDto.getCep(), cli, cid);
+        //Vinculando endereço a um cliente
+        cli.getEnderecos().add(end);
+
+        //Inserindo numero de telefone a um cliente(Obrigatorio)
+        cli.getTelefones().add(objDto.getTelefone1());
+
+        //Caso o Cliente tenha mais de um telefone inserido
+        if(objDto.getTelefone2() != null) {
+            cli.getTelefones().add(objDto.getTelefone2());
+        }
+        if(objDto.getTelefone3() != null) {
+            cli.getTelefones().add(objDto.getTelefone3());
+        }
+
+        return cli;
     }
 
     private void updateData(Cliente newObj, Cliente obj) {
         newObj.setNome(obj.getNome());
         newObj.setEmail(obj.getEmail());
     }
+
 
 }
