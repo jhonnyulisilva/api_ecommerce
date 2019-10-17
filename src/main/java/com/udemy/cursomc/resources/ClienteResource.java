@@ -1,9 +1,7 @@
 package com.udemy.cursomc.resources;
 
-import com.udemy.cursomc.DTO.CategoriaDTO;
 import com.udemy.cursomc.DTO.ClienteDTO;
 import com.udemy.cursomc.DTO.ClienteNewDTO;
-import com.udemy.cursomc.domain.Categoria;
 import com.udemy.cursomc.domain.Cliente;
 import com.udemy.cursomc.services.ClienteService;
 import org.springframework.beans.factory.annotation.Autowired;
