@@ -1,13 +1,14 @@
 package com.udemy.cursomc.config;
 
 import com.udemy.cursomc.services.DBService;
+import com.udemy.cursomc.services.EmailService;
+import com.udemy.cursomc.services.SmtpEmailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 
-import javax.validation.Valid;
 import java.text.ParseException;
 
 @Configuration
@@ -29,6 +30,11 @@ public class DevConfig {
 
         dbService.instantiateH2Database();
         return true;
+    }
+
+    @Bean
+    public EmailService emailService() {
+        return new SmtpEmailService();
     }
 
 }
