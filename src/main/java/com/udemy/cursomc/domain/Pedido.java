@@ -4,10 +4,9 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Objects;
-import java.util.Set;
+import java.text.NumberFormat;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 @Entity
 public class Pedido implements Serializable {
@@ -113,5 +112,31 @@ public class Pedido implements Serializable {
     @Override
     public int hashCode() {
         return Objects.hash(id);
+    }
+
+    @Override
+    public String toString() {
+        NumberFormat nf = NumberFormat.getCurrencyInstance(new Locale("pt", "BR"));
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+        final StringBuffer sb = new StringBuffer();
+        sb.append("Pedido Numero: ");
+        sb.append(getId());
+        sb.append(", Instante: ");
+        sb.append(sdf.format(getInstante()));
+        sb.append(", Cliente: ");
+        sb.append(getCliente().getNome());
+        sb.append(", Situação do Pagamento: ");
+        try {
+            sb.append(getPagamento().getEstado().getDescricao());
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        }
+        sb.append("\nDetalhes:\n");
+        for(ItemPedido ip : getItens()) {
+            sb.append(ip.toString());
+        }
+        sb.append("Valor Total: ");
+        sb.append(nf.format(getValorTotal()));
+        return sb.toString();
     }
 }
