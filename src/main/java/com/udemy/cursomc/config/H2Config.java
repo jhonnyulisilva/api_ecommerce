@@ -1,6 +1,8 @@
 package com.udemy.cursomc.config;
 
 import com.udemy.cursomc.services.DBService;
+import com.udemy.cursomc.services.EmailService;
+import com.udemy.cursomc.services.MockEmailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -19,6 +21,11 @@ public class H2Config {
     public boolean instantiateDatabase() throws ParseException {
         dbService.instantiateH2Database();
         return true;
+    }
+
+    @Bean
+    public EmailService emailService() {
+        return new MockEmailService();
     }
 
 }
