@@ -1,6 +1,5 @@
 package com.udemy.cursomc.services;
 
-import com.udemy.cursomc.domain.Pedido;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
