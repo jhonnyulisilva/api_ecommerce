@@ -12,7 +12,6 @@ import java.util.Objects;
 @Inheritance(strategy = InheritanceType.JOINED)
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "@type")
 public abstract class Pagamento implements Serializable {
-
     private static final long serialVersionUID = 1L;
 
     @Id

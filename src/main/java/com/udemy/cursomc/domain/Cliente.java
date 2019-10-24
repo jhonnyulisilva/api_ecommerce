@@ -6,7 +6,6 @@ import com.udemy.cursomc.domain.Enums.TipoCliente;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.time.Period;
 import java.util.*;
 import java.util.stream.Collectors;
 
