@@ -5,9 +5,12 @@ import com.udemy.cursomc.DTO.ClienteNewDTO;
 import com.udemy.cursomc.domain.Cidade;
 import com.udemy.cursomc.domain.Cliente;
 import com.udemy.cursomc.domain.Endereco;
+import com.udemy.cursomc.domain.Enums.Perfil;
 import com.udemy.cursomc.domain.Enums.TipoCliente;
 import com.udemy.cursomc.repositories.ClienteRepository;
 import com.udemy.cursomc.repositories.EnderecoRepository;
+import com.udemy.cursomc.security.UserSS;
+import com.udemy.cursomc.services.exceptions.AuthorizationException;
 import com.udemy.cursomc.services.exceptions.DataIntegrityException;
 import com.udemy.cursomc.services.exceptions.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,6 +36,12 @@ public class ClienteService {
     private EnderecoRepository enderecoRepository;
 
     public Cliente find(Integer id) {
+
+        UserSS user = UserService.authenticated();
+        if(user==null || !user.hasRole(Perfil.ADMIN) && !id.equals(user.getId())) {
+            throw new AuthorizationException("Acesso negado");
+        }
+
         Cliente obj = repo.findById(id).orElse(null);
 
         if(obj == null){
