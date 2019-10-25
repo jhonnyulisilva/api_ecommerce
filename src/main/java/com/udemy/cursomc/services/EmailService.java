@@ -1,5 +1,6 @@
 package com.udemy.cursomc.services;
 
+import com.udemy.cursomc.domain.Cliente;
 import com.udemy.cursomc.domain.Pedido;
 import org.springframework.mail.SimpleMailMessage;
 
@@ -12,4 +13,6 @@ public interface EmailService {
 
     void sendOrderConfirmationHtmlEmail(Pedido obj);
     void sendHtmlEmail(MimeMessage msg);
+
+    void sendNewPasswordEmail(Cliente cliente, String newPass);
 }
