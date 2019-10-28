@@ -2,10 +2,8 @@ package com.udemy.cursomc.services.validation;
 
 import com.udemy.cursomc.DTO.ClienteDTO;
 import com.udemy.cursomc.domain.Cliente;
-import com.udemy.cursomc.domain.Enums.TipoCliente;
 import com.udemy.cursomc.repositories.ClienteRepository;
 import com.udemy.cursomc.resources.exceptions.FieldMessage;
-import com.udemy.cursomc.services.validation.utils.BR;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.HandlerMapping;
 

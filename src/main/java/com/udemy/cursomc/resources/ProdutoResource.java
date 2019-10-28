@@ -1,11 +1,8 @@
 package com.udemy.cursomc.resources;
 
-import com.udemy.cursomc.DTO.CategoriaDTO;
 import com.udemy.cursomc.DTO.ProdutoDTO;
-import com.udemy.cursomc.domain.Pedido;
 import com.udemy.cursomc.domain.Produto;
 import com.udemy.cursomc.resources.utils.URL;
-import com.udemy.cursomc.services.PedidoService;
 import com.udemy.cursomc.services.ProdutoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;

@@ -1,17 +1,8 @@
 package com.udemy.cursomc;
 
-import com.udemy.cursomc.domain.*;
-import com.udemy.cursomc.domain.Enums.EstadoPagamento;
-import com.udemy.cursomc.domain.Enums.TipoCliente;
-import com.udemy.cursomc.repositories.*;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.web.servlet.config.annotation.EnableWebMvc;
-
-import java.text.SimpleDateFormat;
-import java.util.Arrays;
 
 @SpringBootApplication
 public class CursomcApplication implements CommandLineRunner{
